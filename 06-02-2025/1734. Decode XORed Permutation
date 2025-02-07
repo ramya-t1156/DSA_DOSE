@@ -1,0 +1,27 @@
+class Solution {
+    public int[] decode(int[] encoded) {
+        int n = encoded.length+1;
+        int[] perm = new int[n];
+        int a = 0;
+
+        // using like (a^b^c)^(b^c) = a
+        // from finding from first element to last
+        for(int i = 0;i<=n;i++){
+            a^=i;
+            // for skipping the first element
+            // and then skipping the even elements to avoid redundancy
+            if(i<n && i%2==1){
+                a ^= encoded[i];
+            }
+        }
+
+        // storing the first element in the perm
+        perm[0] = a;
+        // to finding the remaining elements with the help of previous elements 
+        // like , (a^b)^a = result^a
+        for(int i = 0;i<n-1;i++){
+            perm[i+1] = perm[i]^encoded[i];
+        }
+        return perm;
+    }
+}
