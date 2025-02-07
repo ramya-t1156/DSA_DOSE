@@ -1,14 +1,26 @@
-// Time Complexity - O(n logn)
+// // Time Complexity - O(n logn)
+// class Solution {
+//     public int hammingDistance(int x, int y) {
+//         int xorVal = x^y;
+//         int count = 0;
+//         while(xorVal>0){
+//             if((xorVal & 1)>0){
+//                 count++;
+//             }
+//             xorVal =xorVal>>1;
+//         }
+//         return count;
+//     }
+// }
+
 class Solution {
     public int hammingDistance(int x, int y) {
-        int xorVal = x^y;
-        int count = 0;
-        while(xorVal>0){
-            if((xorVal & 1)>0){
-                count++;
+        int dist = 0;
+        for(int i = 0;i<32;i++){
+            if((((1<<i)&x)==0 && ((1<<i)&y)>0) || ((1<<i)&x)>0 && ((1<<i)&y)==0){
+                dist++;
             }
-            xorVal =xorVal>>1;
         }
-        return count;
+        return dist;
     }
 }
