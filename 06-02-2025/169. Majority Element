@@ -1,0 +1,33 @@
+// class Solution {
+//     public int majorityElement(int[] nums) {
+//         Map<Integer,Integer> hm = new HashMap<>();
+//         for(int num : nums){
+//             hm.put(num,hm.getOrDefault(num,0)+1);
+//         }
+//         for(Map.Entry<Integer,Integer> map: hm.entrySet()){
+//             if(map.getValue()>nums.length/2){
+//                 return map.getKey();
+//             }
+//         }
+//         return 0;
+//     }
+// }
+
+class Solution {
+    public int majorityElement(int[] nums) {
+        int count = 0;
+        int num = nums[0];
+        for(int curr : nums){
+            if(count==0){
+                num = curr;
+            }
+            if(curr == num){
+                count++;
+            }
+            else{
+                count--;
+            }
+        }
+        return num;
+    }
+}
