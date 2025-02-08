@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int>primes;
+    
+    void computePrimes(){
+        vector<bool>isPrime(1001,true);
+        isPrime[0]=isPrime[1]=false;
+        for(int i = 2;i*i<=1000;i++){
+            if(isPrime[i]){
+                for (int j = i * i; j < 1000; j += i) 
+                    isPrime[j] = false;
+            }
+        }
+        for(int i = 2;i<isPrime.size();i++){
+            if(isPrime[i]) primes.push_back(i);
+        }
+    }
+    bool primeSubOperation(vector<int>& nums) {
+        // to compute the prime numbers till 1000
+        computePrimes();
+
+        // taking prev to ensure strictly increasing order
+        int prev = 0 , num;
+
+        for(int i = 0;i<nums.size();i++){
+            // taking the current array element
+            num = nums[i];
+
+            // iterate over all the prime numbers and get the correct number
+            for(int j = primes.size()-1 ; j>=0 ;j--){
+                if(primes[j]<num && num-primes[j]>prev){
+                    num -= primes[j];
+                    break;
+                }
+            }
+
+            // if the current computed number is lesser than or equal to the previous number then return false
+            if(num<=prev){
+                return false;
+            }
+
+            // updates the prev value
+            prev = num;
+        }
+        return true;
+    }
+};
